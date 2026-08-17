@@ -1,17 +1,35 @@
-# Security Event & Authentication Log Analysis
+# Security Log Analysis
 
-## Goal
-Detect suspicious authentication behavior and high-risk security events in a simulated enterprise event log.
+This project analyzes simulated authentication and security event logs to identify suspicious login behavior and high-risk activity.
 
-## Stack
-Python / pandas, with an optional Splunk exercise.
+## Technologies
+- Python
+- pandas
+- Splunk SPL
 
 ## Dataset
-Synthetic authentication/security log with 18,000+ events and an intentionally injected suspicious sequence.
+The dataset contains more than 18,000 synthetic security events across users, hosts, IP addresses, and event types. Event types include successful logins, failed logins, file access, privilege changes, and malware alerts.
 
-## Resume bullets — use only after you run and understand the project
-- Analyzed 18,000+ simulated authentication and security events to identify brute-force patterns, suspicious logins, and high-risk activity.
-- Developed Python detection logic to flag repeated authentication failures and successful logins following abnormal failure bursts.
-- Documented incident indicators and created Splunk SPL queries for authentication monitoring and security-event triage.
+## Detection Logic
+The analysis identifies repeated failed login attempts by user and source IP, successful logins following bursts of failed attempts, privilege changes, malware alerts, and external authentication activity. A suspicious authentication sequence is intentionally included in the synthetic dataset so the detection rules can be validated.
 
-If you complete the Splunk import and run the searches, you can discuss Splunk in the project. Until then, call it Python-based security log analysis.
+## Repository Structure
+```text
+data/
+    auth_security_events.csv
+outputs/
+    brute_force_candidates.csv
+    high_risk_events.csv
+    suspicious_success_after_failures.csv
+detect_incidents.py
+splunk_queries.md
+README.md
+```
+
+## Running the Project
+```bash
+pip install pandas
+python detect_incidents.py
+```
+
+The file `splunk_queries.md` contains SPL queries for investigating failed logins, high-risk events, and external authentication activity.
